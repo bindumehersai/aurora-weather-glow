@@ -70,6 +70,11 @@ export default {
 					'orange': '#F97316',
 					'white': '#FFFFFF',
 					'gray': '#F1F0FB',
+					'bright-yellow': '#FFD700',
+					'vibrant-blue': '#0EA5E9',
+					'soft-green': '#a8e063',
+					'soft-orange': '#FEC6A1',
+					'soft-pink': '#FFDEE2'
 				}
 			},
 			borderRadius: {
@@ -95,8 +100,8 @@ export default {
 					to: { opacity: '0', transform: 'translateY(10px)' }
 				},
 				'pulse-subtle': {
-					'0%, 100%': { opacity: '1' },
-					'50%': { opacity: '0.8' },
+					'0%, 100%': { opacity: '1', transform: 'scale(1)' },
+					'50%': { opacity: '0.8', transform: 'scale(1.05)' },
 				},
 				'float': {
 					'0%, 100%': { transform: 'translateY(0)' },
@@ -105,6 +110,10 @@ export default {
 				'spin-slow': {
 					from: { transform: 'rotate(0deg)' },
 					to: { transform: 'rotate(360deg)' }
+				},
+				'bounce-subtle': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-10px)' }
 				}
 			},
 			animation: {
@@ -114,10 +123,12 @@ export default {
 				'fade-out': 'fade-out 0.3s ease-out',
 				'pulse-subtle': 'pulse-subtle 3s infinite ease-in-out',
 				'float': 'float 3s infinite ease-in-out',
-				'spin-slow': 'spin-slow 8s linear infinite'
+				'spin-slow': 'spin-slow 8s linear infinite',
+				'bounce-subtle': 'bounce-subtle 3s infinite ease-in-out'
 			},
 			backgroundImage: {
 				'sunny': 'linear-gradient(to bottom, #4facfe 0%, #00f2fe 100%)',
+				'sunny-vibrant': 'linear-gradient(to bottom, #FF8008 0%, #FFC837 100%)',
 				'cloudy': 'linear-gradient(to bottom, #757F9A 0%, #D7DDE8 100%)',
 				'rainy': 'linear-gradient(to bottom, #000428 0%, #004e92 100%)',
 				'night': 'linear-gradient(to bottom, #0f2027, #203a43, #2c5364)',

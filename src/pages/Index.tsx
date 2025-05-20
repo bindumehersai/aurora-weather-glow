@@ -5,24 +5,41 @@ import SearchBar from "@/components/SearchBar";
 import CurrentWeather from "@/components/CurrentWeather";
 import Forecast from "@/components/Forecast";
 import Footer from "@/components/Footer";
+import WeatherAnimations from "@/components/WeatherAnimations";
+import WeatherCursor from "@/components/WeatherCursor";
 import { mockCurrentWeather, mockForecast, getWeatherBackground } from "@/utils/mockWeatherData";
 import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
-  const [currentWeather, setCurrentWeather] = useState(mockCurrentWeather);
+  const [currentWeather, setCurrentWeather] = useState({
+    ...mockCurrentWeather,
+    location: "New Delhi, India", // Set default location to India
+    condition: "Sunny", // Set a default condition
+  });
   const [forecast, setForecast] = useState(mockForecast);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [bgClass, setBgClass] = useState("bg-sunny");
   const { toast } = useToast();
   
   // Check if dark mode is enabled to set appropriate background
-  const isDarkMode = document.documentElement.classList.contains("dark");
-
-  // Set background based on current weather when component mounts or weather changes
+  // Default to light mode
   useEffect(() => {
+    // Make sure we're using light mode by default
+    document.documentElement.classList.remove("dark");
+    localStorage.setItem("theme", "light");
+    
+    // Initial fetch for India's weather
+    handleSearch("New Delhi, India");
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  
+  // Set background based on current weather
+  useEffect(() => {
+    const isDarkMode = document.documentElement.classList.contains("dark");
     const newBgClass = getWeatherBackground(currentWeather.condition, isDarkMode);
     setBgClass(newBgClass);
-  }, [currentWeather.condition, isDarkMode]);
+  }, [currentWeather.condition]);
 
   // Listen for dark mode changes
   useEffect(() => {
@@ -82,6 +99,12 @@ const Index = () => {
 
   return (
     <div className={`min-h-screen flex flex-col bg-transition ${bgClass}`}>
+      {/* Custom cursor based on weather condition */}
+      <WeatherCursor weatherCondition={currentWeather.condition} />
+      
+      {/* Weather animations based on condition */}
+      <WeatherAnimations condition={currentWeather.condition} />
+      
       <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 flex-grow flex flex-col">
         <Header />
         

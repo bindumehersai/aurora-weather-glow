@@ -8,10 +8,11 @@ export function ThemeToggle() {
   const { toast } = useToast();
 
   useEffect(() => {
+    // Default to light mode
     const storedTheme = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     
-    const initialDarkMode = storedTheme === "dark" || (!storedTheme && prefersDark);
+    // Only use dark mode if explicitly set in storage
+    const initialDarkMode = storedTheme === "dark";
     setIsDarkMode(initialDarkMode);
     
     if (initialDarkMode) {
@@ -45,7 +46,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 rounded-full bg-white/20 dark:bg-slate-800/50 backdrop-blur-md hover:bg-white/30 dark:hover:bg-slate-700/50 transition-colors"
+      className="p-2 rounded-full bg-white/30 hover:bg-white/40 dark:bg-slate-800/50 backdrop-blur-md dark:hover:bg-slate-700/50 transition-colors"
       aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
     >
       {isDarkMode ? (
